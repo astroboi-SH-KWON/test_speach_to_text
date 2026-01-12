@@ -2,6 +2,7 @@ import whisper
 import os
 import time
 from datetime import timedelta
+from glob import glob
 
 from config import config
 
@@ -65,14 +66,9 @@ def make_text_to_file(text_obj, output_file):
 
 
 if __name__ == "__main__":
-    wav_fl = "R20260104-174919.WAV"
-    input_wav = f"./input/{wav_fl}"
-    output_txt = f"./output/result_{wav_fl.replace('.WAV', '')}.txt"
-    output_srt = f"./output/{wav_fl.replace('.WAV', '')}.srt"
-
-    st_time = time.perf_counter()
-    # script_obj = transcribe_wav_to_text(input_wav)
-    # print("음성 변환 완료, 파일 생성 시작")
-    # make_text_to_file(script_obj, output_txt)
-    create_srt(input_wav, output_srt)
-    print(f"DONE :::::::::{time.perf_counter() - st_time} secs")
+    wav_dir = "20260111"
+    wav_liat = glob(f"/Users/astroboi/Library/CloudStorage/OneDrive-개인/001_study/000_BOOKs/000_DAP/000_CLASSES_20260104_/{wav_dir}/RECORD/*.WAV")
+    for input_wav in wav_liat:
+        st_time = time.perf_counter()
+        create_srt(input_wav, input_wav.replace(".WAV", ".srt"))
+        print(f"DONE :::::::::{time.perf_counter() - st_time} secs")
